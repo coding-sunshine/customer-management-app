@@ -5,11 +5,11 @@
         </div>
 
         <div>
-            <button
+            <router-link :to="{name: 'customer_create'}"
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
             >
-                Add New Item
-            </button>
+                Add New Customer
+            </router-link>
         </div>
     </header>
 
@@ -57,7 +57,7 @@
 
         <!-- Table -->
         <div class="overflow-x-auto" ref="list_view">
-            <table class="min-w-full text-sm text-left text-gray-500">
+            <table class="min-w-full text-sm text-left text-gray-500 w-full">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">Name</th>
@@ -82,7 +82,7 @@
                             <td class="px-6 py-4">{{ item.reference }}</td>
                             <td class="px-6 py-4">{{ item.category.title }}</td>
                             <td class="px-6 py-4">{{ item.contacts.length }}</td>
-                            <td class="px-6 py-4">Edit | Delete</td>
+                            <td class="px-6 py-4"> <router-link :to="{name: 'customer_edit', params: {id: item.id}}" >Edit</router-link> | <a href="#" @click.prevent="removeRecord( item.id )">Delete</a></td>
                         </tr>
                     </template>
                     <template v-else>
@@ -171,6 +171,16 @@ export default {
                 category: ''
             }
             this.loadData();
+        },
+        removeRecord( id ){
+            if( confirm( 'Are you sure ?') ){
+                request.delete( '/api/customers/' + id)
+                    .then(
+                        ( res ) => {
+                            this.loadData();
+                        }
+                    )
+            }
         }
     }
 }

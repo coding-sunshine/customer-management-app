@@ -1,5 +1,6 @@
 import CustomerList from '../components/customer/CustomerList.vue';
 import ErrorPage from '../components/error/Index.vue';
+import CustomerCreate from '../components/customer/CustomerCreate.vue';
 const routes = [
     {
         path: '/app/',
@@ -12,6 +13,16 @@ const routes = [
         meta:{
             title: 'Customers'
         }
+    },
+    {
+        path: '/app/customers/create',
+        name: 'customer_create',
+        component: CustomerCreate,
+    },
+    {
+        path: '/app/customers/edit/:id',
+        name: 'customer_edit',
+        component: CustomerCreate,
     },
     {
         path: '/app/error',

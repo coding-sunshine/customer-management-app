@@ -11,7 +11,7 @@ http.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response ) {
+        if (error.response && ![422, 500].includes( error.status ) ) {
             router.push({name: 'error'});
         }
         return Promise.reject(error);
