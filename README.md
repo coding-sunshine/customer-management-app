@@ -19,7 +19,7 @@
 ## API Documentation
 Once the project is running, you can access the API documentation by visiting the following URL:
 ```
-{{ your app url }}//docs/api
+{{ your app url }}/docs/api
 ```
 
 ## TODO
