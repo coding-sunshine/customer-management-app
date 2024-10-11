@@ -17,4 +17,4 @@ http.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-return http;
+export default http;
