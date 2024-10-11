@@ -1,4 +1,5 @@
 import CustomerList from '../components/customer/CustomerList.vue';
+import ErrorPage from '../components/error/Index.vue';
 const routes = [
     {
         path: '/app/',
@@ -10,6 +11,14 @@ const routes = [
         component: CustomerList,
         meta:{
             title: 'Customers'
+        }
+    },
+    {
+        path: '/app/error',
+        name: 'error',
+        component: ErrorPage,
+        meta:{
+            title: 'Error'
         }
     },
 ];
