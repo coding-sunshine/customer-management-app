@@ -13,17 +13,35 @@ class CustomerController extends Controller
     {
         $query = Customer::with(['category', 'contacts']);
 
+        if( !empty( $data ) && is_array( $data ) ){
+            $category = data_get( $data, 'category');
+            $searchText = data_get( $data, 'search_text');
+
+            if( !empty( $category ) ){
+                $q->searchCategoryId( $category );
+            }
+
+            if( !empty( $searchText ) ){
+                $q->commonSearchText( $searchText );
+            }
+        }
+
         if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where('name', 'like', "%{$search}%")
-                ->orWhere('reference', 'like', "%{$search}%");
+
+            $category = $request->get('search')['category']??'';
+            $searchText = $request->get('search')['search']??'';
+
+            if($searchText!==''){
+                $query->where('name', 'like', "%{$searchText}%")
+                    ->orWhere('reference', 'like', "%{$searchText}%");
+            }
+
+            if($category!=='' && $category!==null){
+                $query->where('category_id', $category);
+            }
         }
 
-        if ($request->has('category')) {
-            $query->where('category_id', $request->input('category'));
-        }
-
-        $customers = $query->paginate(10);
+        $customers = $query->paginate(5);
 
         return response()->json($customers);
     }

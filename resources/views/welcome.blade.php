@@ -7,6 +7,14 @@
         <title>{{ config('app.name') }}</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <script type="text/javascript">
+            @if( $categories?->count() )
+                var categories = @json( $categories );
+            @else
+                var categories = [];
+            @endif
+        </script>
+
     </head>
     <body>
         <div id="app"></div>
